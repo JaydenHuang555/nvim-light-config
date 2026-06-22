@@ -3,7 +3,9 @@ vim.pack.add({
 	"https://github.com/stevearc/oil.nvim"
 })
 
-require("oil").setup({
+local oil = require("oil")
+
+oil.setup({
   -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
   -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
   default_file_explorer = true,
@@ -207,3 +209,21 @@ require("oil").setup({
     border = nil,
   },
 })
+
+local group = vim.api.nvim_create_augroup("EXPLORE HELPERS", {clear = true})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  desc = "Open dir if no args are passed",
+  group = group,
+  callback = function ()
+    local args = vim.fn.argv()
+    if #args == 0 then
+      vim.schedule(
+        function ()
+          vim.api.nvim_command("e .")
+        end
+      )
+    end
+  end
+})
+

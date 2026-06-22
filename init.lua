@@ -15,6 +15,8 @@ do
   vim.o.relativenumber = true
   vim.o.wrap = true
 
+  require 'lines'
+
   -- Enable mouse mode, can be useful for resizing splits for example!
   vim.o.mouse = 'a'
 
@@ -79,20 +81,6 @@ do
 end
 
 do
-	require 'clipboard'
-	require 'win'
-	require 'treesitter'
-	require 'pack'
-  require 'theme'
-  require 'lsp'
-  require 'fs'
-  require 'pairs'
-  require 'grep'
-  require 'term'
-  require 'greplist'
-end
-
-do
   -- mini
   -- Highlight todo, notes, etc in comments
   vim.pack.add {'https://github.com/folke/todo-comments.nvim' }
@@ -136,5 +124,18 @@ do
   ---@diagnostic disable-next-line: duplicate-set-field
   statusline.section_location = function() return '%2l:%-2v' end
 
+end
+
+do
+  require 'pairs'
+  require 'grep'
+  require 'term'
+	require 'clipboard'
+	require 'win'
+	require 'treesitter'
+	require 'pack'
+  require 'theme'
+  require 'lsp'
+  require 'fs'
 end
 

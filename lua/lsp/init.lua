@@ -6,10 +6,17 @@ do
   require("fidget").setup {}
 
   vim.diagnostic.config {
+    signs = {
+      numhl = {
+        [vim.diagnostic.severity.ERROR] = 'Error'
+      }
+    },
     update_in_insert = false,
     severity_sort = true,
     float = { border = 'rounded', source = 'if_many' },
-    underline = true,
+    underline = {
+      severity = vim.diagnostic.severity.WARN
+    },
     virtual_text = true, -- Text shows up at the end of the line
     virtual_lines = false, -- Text shows up underneath the line, with virtual lines
     jump = {
@@ -33,8 +40,15 @@ do
   vim.pack.add(plugs)
 
   local servers = {
-    clangd = {},
-    rust_analyzer = {},
+    clangd = {
+    },
+    rust_analyzer = {
+      -- standalone = true,
+      settings = {
+        ['rust-analyzer'] = {
+        },
+      }
+    },
     lua_ls = {
       settings = {
         Lua = {
@@ -117,4 +131,10 @@ do
     end,
   })
   require "lsp.complete"
+
+  
+  vim.keymap.set("n", "<Leader>q", vim.diagnostic.setloclist, {
+    noremap = true
+  })
+  vim.keymap.set("i", "<C-Space>", "<C-x><C-o>", { buffer = true })
 end

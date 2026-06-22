@@ -7,10 +7,19 @@ local ft = "greplist"
 ---@alias Entry {line: number, col: number, source: string, label: string, display: string}
 local M = {}
 
+M.createBuffer = function ()
+	local bufnr = api.nvim_create_buf(false, true)
+	vim.bo[bufnr].ft = ft
+	api.nvim_buf_set_keymap(bufnr, "n", "<Cr>", "", {
+		callback = function ()
+		end
+	})
+	return bufnr
+end
+
 ---@return GrepList
 M.create = function(ns)
-	local displayBuffer = api.nvim_create_buf(false, true)
-	vim.bo[displayBuffer].ft = ft
+	local displayBuffer = M.createBuffer()
 	return {
 		maxEntries = 100,
 		shownEntries = 20,
