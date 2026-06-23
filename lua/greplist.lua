@@ -10,10 +10,6 @@ local M = {}
 M.createBuffer = function ()
 	local bufnr = api.nvim_create_buf(false, true)
 	vim.bo[bufnr].ft = ft
-	api.nvim_buf_set_keymap(bufnr, "n", "<Cr>", "", {
-		callback = function ()
-		end
-	})
 	return bufnr
 end
 
@@ -28,7 +24,6 @@ M.create = function(ns)
 		ns = ns
 	}
 end
-
 
 ---@param grep GrepList
 ---@param entry Entry
