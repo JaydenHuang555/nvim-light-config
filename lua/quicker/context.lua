@@ -170,10 +170,10 @@ function M.expand(opts)
       opts.loclist_win,
       {},
       "r",
-      { items = items, title = qf_list.title, context = ctx }
+      { items = items, title = qf_list.title, ctx = ctx }
     )
   else
-    vim.fn.setqflist({}, "r", { items = items, title = qf_list.title, context = ctx })
+    vim.fn.setqflist({}, "r", { items = items, title = qf_list.title, ctx = ctx })
   end
 
   pcall(vim.api.nvim_win_set_cursor, qf_list.winid, { newpos, 0 })
@@ -227,10 +227,10 @@ function M.collapse(opts)
       opts.loclist_win,
       {},
       "r",
-      { items = items, title = qf_list.title, context = qf_list.context }
+      { items = items, title = qf_list.title, ctx = qf_list.context }
     )
   else
-    vim.fn.setqflist({}, "r", { items = items, title = qf_list.title, context = qf_list.context })
+    vim.fn.setqflist({}, "r", { items = items, title = qf_list.title, ctx = qf_list.context })
   end
   if qf_list.winid then
     if last_item then
@@ -302,10 +302,10 @@ function M.refresh(loclist_win, opts)
       loclist_win,
       {},
       "r",
-      { items = items, title = qf_list.title, context = qf_list.context }
+      { items = items, title = qf_list.title, ctx = qf_list.context }
     )
   else
-    vim.fn.setqflist({}, "r", { items = items, title = qf_list.title, context = qf_list.context })
+    vim.fn.setqflist({}, "r", { items = items, title = qf_list.title, ctx = qf_list.context })
   end
 end
 

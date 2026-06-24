@@ -70,6 +70,9 @@ local function add_qf_error(bufnr, lnum, text, text_hl)
   local offset = vim.api.nvim_strwidth(line:sub(1, col))
   local ns = vim.api.nvim_create_namespace("quicker_err")
   vim.api.nvim_buf_set_extmark(bufnr, ns, lnum - 1, col, {
+    sign_hl_group = "Error",
+    priority = 400,
+    hl_mode = "combine",
     virt_text = { { config.type_icons.E, "DiagnosticSignError" } },
     virt_text_pos = "inline",
     virt_lines = {
@@ -340,13 +343,13 @@ local function save_changes(bufnr, loclist_win)
       loclist_win,
       {},
       "r",
-      { items = new_items, title = qf_list.title, context = qf_list.context }
+      { items = new_items, title = qf_list.title, ctx = qf_list.context }
     )
   else
     vim.fn.setqflist(
       {},
       "r",
-      { items = new_items, title = qf_list.title, context = qf_list.context }
+      { items = new_items, title = qf_list.title, ctx = qf_list.context }
     )
   end
   if winid and view then

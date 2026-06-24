@@ -1,5 +1,4 @@
 
-
 local quicker = require("quicker")
 
 quicker.setup({
@@ -13,10 +12,11 @@ quicker.setup({
     wrap = false,
   },
   -- Set to false to disable the default options in `opts`
-  use_default_opts = true,
+  use_default_opts = false,
   -- Keymaps to set for the quickfix buffer
   keys = {
-    -- { ">", "<cmd>lua require('quicker').expand()<CR>", desc = "Expand quickfix content" },
+    {"q", "<cmd>bd<Cr>", desc = "Quick quit buffer"},
+    { ">", "<cmd>lua require('quicker').expand()<CR>", desc = "Expand quickfix content" },
   },
   -- Callback function to run any custom logic or keymaps for the quickfix buffer
   on_qf = function(bufnr) end,
@@ -45,9 +45,9 @@ quicker.setup({
   type_icons = {
     E = "E ",
     W = "W ",
-    I = " ",
-    N = " ",
-    H = " ",
+    I = "I ",
+    N = "N ",
+    H = "H ",
   },
   -- Border characters
   borders = {
@@ -73,4 +73,31 @@ quicker.setup({
   end,
 })
 
+vim.keymap.set("n", "<leader>ql", function()
+  require("quicker").toggle({ loclist = true })
+end, { desc = "Toggle loclist (Quicker)" })
+
+vim.keymap.set("n", "<leader>qq", function()
+  require("quicker").toggle({ loclist = false })
+end, { desc = "Toggle quickfix (Quicker)" })
+
+
+
+function single_matches(bufnr, pattern, clean)
+  if not clean then
+    vim.notify("ERR: NO SUPPORT FOR REGEX YET")
+    return
+  end
+
+  vim.fn.setloclist(0, {})
+  local items = {}
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local content = table.concat(lines, "\n")
+  for match in string.gmatch(content, pattern) do
+    ---@type vim.quickfix.entry
+    local item = {
+    }
+  end
+  
+end
 

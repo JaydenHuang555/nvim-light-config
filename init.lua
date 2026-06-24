@@ -15,6 +15,7 @@ do
   vim.o.relativenumber = true
   vim.o.wrap = true
 
+  vim.o.expandtab = false 
   require 'lines'
 
   -- Enable mouse mode, can be useful for resizing splits for example!
@@ -49,8 +50,8 @@ do
   vim.o.splitright = true
   vim.o.splitbelow = true
 
-  vim.o.list = true
-  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+  vim.o.list = false
+  vim.opt.listchars = { trail = '·', nbsp = '␣' }
 
   -- Preview substitutions live, as you type!
   vim.o.inccommand = 'split'
@@ -58,9 +59,6 @@ do
   vim.o.cursorline = true
   vim.o.cursorlineopt = "number"
 
-  -- Minimal number of screen lines to keep above and below the cursor.
-
-  vim.o.scrolloff = 40
 
   -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
   -- instead raise a dialog asking if you wish to save the current file(s)
@@ -132,5 +130,6 @@ do
   require 'theme'
   require 'lsp'
   require 'fs'
+  require 'grep'
 end
 
