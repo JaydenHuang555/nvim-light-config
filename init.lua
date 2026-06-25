@@ -107,7 +107,6 @@ statusline.section_location = function() return '%2l:%-2v' end
 
 require 'grep'
 require 'pairs'
-require 'term'
 require 'tele'
 require 'treesitter'
 require 'theme'
