@@ -9,35 +9,21 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
--- Make line numbers default
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.wrap = true
-
-vim.o.expandtab = false 
+vim.o.expandtab = false
 require 'lines'
-
--- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = 'a'
-
--- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
-
-
--- Enable break indent
 
 vim.o.breakindent = true
 vim.o.smartindent = true
 
-
--- Enable undo/redo changes even after closing and reopening a file
 vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
 vim.o.signcolumn = 'yes'
 
 -- Decrease update time
@@ -48,16 +34,13 @@ vim.o.timeoutlen = 300
 
 vim.o.splitright = true
 vim.o.splitbelow = true
-
-vim.o.list = false
-vim.opt.listchars = { trail = '·', nbsp = '␣' }
+-- Note: we use 'pcall' inside matchdelete to prevent errors if the match was already cleared
 
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
 vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
-
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s)

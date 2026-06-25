@@ -1,4 +1,6 @@
 
+local api = vim.api
+
 vim.pack.add({
 	"https://github.com/stevearc/oil.nvim"
 })
@@ -212,7 +214,7 @@ oil.setup({
 
 local group = vim.api.nvim_create_augroup("EXPLORE HELPERS", {clear = true})
 
-vim.api.nvim_create_autocmd("VimEnter", {
+api.nvim_create_autocmd("VimEnter", {
   desc = "Open dir if no args are passed",
   group = group,
   callback = function ()
@@ -220,10 +222,17 @@ vim.api.nvim_create_autocmd("VimEnter", {
     if #args == 0 then
       vim.schedule(
         function ()
-          vim.api.nvim_command("e .")
+          api.nvim_command("e .")
         end
       )
     end
   end
 })
-
+api.nvim_create_autocmd("User", {
+  pattern = "OilActionsPost",
+  callback = function(args)
+    if args.data.action.type == "cd" then
+      vim.cmd("cd " .. args.data.action.dir)
+    end
+  end,
+})

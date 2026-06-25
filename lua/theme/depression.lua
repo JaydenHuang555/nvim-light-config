@@ -6,7 +6,9 @@ cmd "colorscheme torture"
 
 local highlights = {
 	["@keyword"] = {fg = "#ff00ff", ctermfg = 201, bold = true },
-	["@keyword.type"] = {fg = "#FF0000", ctermfg = 256, bold = true}
+	["@keyword.type"] = {fg = "#FF0000", ctermfg = 256, bold = true},
+	["@variable"] = {fg = "#ffffff", ctermfg = 231 },
+	["@keyword.builtin"] = {fg = "#40ffff",  ctermfg = 87}
 }
 
 for name, hl in pairs(highlights) do
@@ -29,6 +31,7 @@ local links = {
 	["TabPanel"]= "Normal",
 	["TabPanelFill"]= "EndOfBuffer",
 	["Terminal"]= "Normal",
+	["Identifier"] = "@variable"
 }
 
 for name, link in pairs(links) do
