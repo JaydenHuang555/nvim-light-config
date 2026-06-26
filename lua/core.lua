@@ -1,11 +1,58 @@
 
+vim.loader.enable()
+vim.o.termguicolors = true
+
 local api = vim.api
 
+local cmd = vim.cmd
 local keymap = vim.keymap
 local autocmd = api.nvim_create_autocmd
 
 local buf_set_keymap = api.nvim_buf_set_keymap
 local group = api.nvim_create_augroup("CORE", {clear = true})
+
+local glob_set = keymap.set
+
+vim.g.mapleader = ' '
+
+vim.g.maplocalleader = ' '
+
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
+
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.wrap = true
+vim.o.expandtab = false
+require 'lines'
+vim.o.mouse = 'a'
+vim.o.showmode = false
+
+vim.o.breakindent = true
+vim.o.smartindent = true
+
+vim.o.undofile = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+vim.o.signcolumn = 'yes'
+
+-- Decrease update time
+vim.o.updatetime = 250
+
+-- Decrease mapped sequence wait time
+vim.o.timeoutlen = 300
+
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.inccommand = 'split'
+
+vim.o.cursorline = true
+vim.o.cursorlineopt = "number"
+
+vim.o.confirm = true
+
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- term
 
@@ -20,31 +67,20 @@ autocmd("TermEnter", {
 })
 
 
-keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+glob_set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-keymap.set("n", "<Leader>'", "", {
+glob_set("n", "<Leader>'", "", {
+	desc = "Spawn term in split",
 	noremap = true,
 	silent = true,
 	callback = function ()
-		vim.cmd("sp | term")
+		cmd "sp | term"
 		api.nvim_feedkeys("i", "n", false)
 	end
 })
 
 -- on ft that are quick
 -- add quicker killing binds
-
-function bind_quick_death(bufnr)
-	buf_set_keymap(bufnr, "n", "q", "", {
-		silent = true,
-		desc = "quick kill",
-		callback = function ()
-			api.nvim_buf_delete(bufnr, {
-				force = true
-			})
-		end
-	})
-end
 
 autocmd("BufEnter", {
 	group = group,
@@ -56,14 +92,22 @@ autocmd("BufEnter", {
 		"term"
 	},
 	callback = function (args)
-		bind_quick_death(args.buf)
+		buf_set_keymap(args.buf, "n", "q", "", {
+			silent = true,
+			desc = "quick kill",
+			callback = function ()
+				api.nvim_buf_delete(args.buf, {
+					force = true
+				})
+			end
+		})
 	end
 })
 
 
 -- lang
 
-autocmd({"BufReadPre", "BufEnter"}, {
+autocmd("FileType", {
 	group = group,
 	pattern = {
 		"c",
@@ -92,4 +136,3 @@ autocmd({"BufReadPre", "BufEnter"}, {
 		})
 	end
 })
-
